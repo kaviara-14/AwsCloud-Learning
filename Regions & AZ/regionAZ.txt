@@ -1,0 +1,12 @@
+Regions : 
+    * we will have multiple Regions like mumbai, california..
+
+Availability zone : 
+    * inside a region we will multiple Availability zone..all the Availability zones are isolated from 1 another.
+    * we can deploy our application in multiple az for higher performance and Availability with low latency and fault tolerance.
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+* users - we create a user with strong password to access aws and attach a policy.
+
+* groups - collection of users that shares same permission is called group.
+
+* policy - we can attach policy to group or user, so that we can give them a least privelages to access the service.
+
+* roles 
+    - for aws service to service communication, we can create a role attach a policy, so that service can commicate with the other service.
+    e.g my ec2 instance needs upload or download files from s3 bucket..i will create a role with s3 full access attach to aws ex2 instance.
+
+    - cross Account access, with cross Account..i can access another account services
+
+* organizations
+    - we have one management account, inside that we can create multiple organizational units(ou).
+    - devolpers(ou), production(ou)..we can add accounts in this ou.
+    Advantages : 
+        * centralized management..we can attach policy or remove policy in a go.
+        * consolidated management for all accounts in a single payments.
+
+* role rotation
+    - when we create a role, role rotation automatically create a temporary credentails
+    - aws create temporary credentails, valid only for few hours..it will be refresh after few hours..we can achieve security
+
+* resource based policy
+   
+    Attached directly to a resource (e.g., an S3 bucket, Lambda function, or SNS topic).
+    Specifies who can access the resource and what actions they can perform on it.
+    Example: An S3 bucket policy that allows a specific IAM user or aws service to access the bucket.
+
+IAM Roles:
+    Attached to IAM users, groups, or services (e.g., EC2, Lambda).
+    Roles are assumed by trusted entities to gain temporary permissions.
+    Example: An EC2 instance assumes an IAM role that allows it to access an S3 bucket.
+
+Resource-Based Policies:
+
+    Attached directly to a resource (e.g., an S3 bucket, Lambda function, or SNS topic).
+    Specifies who can access the resource and what actions they can perform on it.
+    Example: An S3 bucket policy that allows a specific IAM user or aws service to access the bucket.

@@ -1,0 +1,109 @@
+1. Load Balaner
+
+    * Load Balaner are servers that forward traffic to multiple servers (e.g ec2 instance)
+    * it will do health check, only if the instance healthy it will sends
+    the traffic.
+    * health check is done by using port and route to check
+    if(instance is not replied Ok)-200--then the instance will be marked as unhealthy
+    and load Balaner will not sends the request.
+    * more user u have more load be balanced across ec2 instance
+
+    why use load Balaner?
+        - spread the load across multiple instance
+        - expose a single point of access(dns) to your Application
+        - seamlessly handles failure of instance
+        - do regular health checks
+        - high availability accross zone
+
+    we can integrate load Balaner with ec2, ec2 auto scaling groups, ecs, cloud watch
+    and route53.
+
+
+        1. Application Load Balaner - http, https
+        2. network load Balaner - tcp, udp, tls
+        3. gateway load Balaner - operators at network layer - ip protocol
+
+
+2. Application Load Balaner - layer 7 
+    * if u want to load balancing on layer 7
+    Application load Balaner is for http & https .
+    load balancing multiple http Application accross machine - target group(group of ec2 instance)
+    supports re-direct from http to https 
+
+    it also supports health check it will send traffic to only healthy instance.
+
+    we will do load balancing at layer 7, we can intercept the http request sends the request to instance.
+
+    1. Load balancing supports : 
+
+        - Host header - *.example.com
+        - path - /homepage
+        - http request method - get, post
+        - source ip - ip address based
+        - query string - some queries based
+        - http header - http header basedd..
+
+    we can attach load-balancing security group to ec2 instance security, so only load Balaner can acess the ec2 instance
+
+
+2. network load Balaner - layer 4(trasport layer)
+    forward tcp & udp traffic to your instance.
+
+    - handles millions of request, high transmission data
+    - ultra-low latency
+
+    NLB has one static ip per az, and supports assigning elastic ip..
+
+    ur Application can only be accessed within one, two or different ip..
+    think of nlb
+
+        NLB will have your front - sends the traffic to ALB 
+
+        Health check ports : TCP, HTTP, https
+
+3. gateway load Balaner - layer 3
+
+    - all the traffic must be inspected by using 3rd party network virtual
+    appliances.
+
+    example : firewall, VPN, intrusion detections and preventions system
+
+    * high Secure
+    only if the they stasifed they all send the traffic to target groups.
+
+
+4. sticky session
+
+    let say client A requesting load balancer, he is redirecting to instance 1.
+    if he again makes the request, load balancer will send the request to instance A again
+
+    the cookie is used for stickness with expiration date 
+    eg. make sure the user doesn't lose his data
+
+    ..may bring imbalancing in backend ec2 instance
+
+    two types :
+        * load balancer generated cookies
+        * Application based cookie
+    
+5. with cross load balancing : each load balancer instance distrubute traffic evenly accross
+all registered instance in all AZ.
+
+6. SSL/TLS 
+    Using SSL, we can encrpyt the traffic between the client and load balancer 
+    only load balancer can decrpyt.
+    e.g 
+        client talks to load balancer over https, which is secure network 
+        and load balancer talks to ec2 instance over http 
+
+7. SNI - solve the problem of loading multiple ssl certificate onto one webserver.
+
+8. OSI Model :
+
+Application layer - layer 7 (search for goole.com)
+Presentation layer - layer 6 (ssl,tls) - encrpyt the request
+session layer - layer 5 - storing session
+transport layer - layer 4 - from client tramsmitting to servers into a small packet.
+network layer - layer 3 - travel to servers through multiple routers
+data link layer - layer 2 (it will go to the switch, from there it will go to the cable)
+physical servers - layer 1 ( reach the datacenter)

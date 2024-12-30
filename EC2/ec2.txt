@@ -1,0 +1,69 @@
+1. EC2 instance(infrastructure as a service)
+    - Elastic compute cloud
+    - it's a virtual server
+    - On top of ec2 instance, we can host our application
+
+With Ec2 we will do
+    - store datta on virtual drives(ebs)
+    - distrubute load across machine(els)
+    - scaling the service using an automatically(asg)
+
+security group control inbound and outbound traffic in ec2 instance
+
+2. different types of EC2 instance
+    - General purpose
+        * web servers (or) code repositories
+    - compute optimized 
+        * great for compute intesive task that require high performance like 
+        gaming server, machine learning models.
+    - memory optimized
+        * Fast performance for workloads that process large data sets in memory
+        like high performance databases
+    - storgae optimized
+        storgae intensive tasks that require high, sequential read and write access to large data sets 
+        on local storgae
+    - accelerated cloud compute
+
+
+3. based on the application we will choose instance type..based on this cpu,
+memory and storgae instance type will vary
+
+4. with key pair..we can login to the instance from the local
+
+5. ports 
+    22 - ssh into ec2 instance
+    21 - ftp 
+    22 - sftp - upload files using ssh.
+    80 - http access unsecured website
+    443 - https - access secured website 
+    3389 - rdp
+
+6. we can attach iam role to ec2 instance
+
+7. Spot instance : spot instance are un-used ec2 instance that user can use at a reduced cost.
+    On demand instance : pay as you go..
+
+8. - public ip - anyone can access from the world wide web
+    - private ip - u r only accessible within your private network.
+    connect to internet using internet gateway(as a proxy)
+
+9. if u need a fixed public ip for your instance - u need Elastic ip.
+
+10. placement groups   
+    we want to have control over how ec2 instance are going to be placed
+    within the aws infrastructure.
+    * cluster - all the ec2 instance are in same az..if one fails..everything is gone.
+    * spread - we can spread our ec2 across multiple az..we can reduce the risk
+    * partition - partition are racks,spread across each az..safe rack failure from one another.
+
+11. ENI - Elastic network interface
+    it is a Virtual network card..
+    so they are what gives ec2 instance access to internet..
+    create a secondary eni with private ip  can be moved across multiple ec2 instance for failover
+
+12. if we hibernate - ec2 RAM will be dumped into our ebs volume,
+once instance running, ram will be loaded to ec2 instance from ebc
+
+13. AMI - application machine Image
+    AMI is a package that contains operating system , configuration , software and monitoring to launch an ec2 instance
+    it is bounded by region u can create your own ami and copy that across multiple region

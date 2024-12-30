@@ -1,0 +1,38 @@
+Auto scaling group
+
+The goal is ,
+    * scale out(add ec2 instance) to match an increase load
+    * scale in(remove ec2 instance) to match decrease load
+
+* if one ec2 instance is unhealthy, another ec2 instance will be created.
+
+    we can either set maximum, desired and minimum capacity = manually
+    or we can use cloud watch alarm to monitor the cpu, if our cpu goes hhigh
+    we can scale in and if we cpu goes down..it will automatically scale out..
+    ALB distrubute traffic to all ec2 instance
+
+* if elb deemed an instance unhealthy, asg will terminate the ec2
+
+
+scaling policies :
+
+    * dynamic scaling
+
+        Target tracking system : 
+            - simple to setup
+            - eg: i want the average asg cpu to say at round 40%
+        simple/step scaling :
+            - when cloud watch alarm triggere(example cpu > 70%), then add 2 units
+            - when cloud watch alarm triggere(example cpu < 30%), remove 1 .
+
+    * scheduled scaling :
+            eg: increase the min capacity to 10 at 5 pm on fridays.
+        
+    * predective scaling :
+            - analyse the histrocial loads
+            - generate forecast
+            - schedule scaling actions
+
+scaling cooldown - 5 mins default
+
+during the cooldown period, the asg will not lauch or terminate additional ec2 instance

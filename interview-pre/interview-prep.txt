@@ -1,0 +1,17 @@
+1. Your company has several EC2 instances running in a production environment.
+ The team wants to optimize costs but ensure minimal performance impact. How would you approach this problem?
+    - I will use spot instance for unused ec2 instance
+    - I setup asg group with target tracking policy to scale in and scale out based on the cpu utilization.
+    - for predictable workloads i will use reservered instance
+
+
+2. You are asked to design a highly available architecture for a critical application using EC2 instances. 
+What steps would you take to ensure high availability?
+
+    - i will create a ec2 instance in different az.
+    - use elastic load balancer to forward  the traffic to ec2 instance
+    -use asg ,to scale-in and scale-out based on the request 
+
+3. One of your EC2 instances becomes unreachable due to an underlying hardware failure. 
+What steps would you take to recover the instance?
+    - if is asg group, it will automatically launch a ec2 instance

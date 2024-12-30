@@ -1,0 +1,59 @@
+1. EBS Volume
+    - Elastic block store - network drive.
+    - it uses network to connect to the ec2 instance
+    - we can attach ebs volume to the ec2 instance..
+    - even if the ec2 instance deleted(delete on termination - No), the instance data will presist...
+    - we can create a new one attach the ebs volume..
+    - ebs can't be attached to multiple ec2 instance..but ec2 can have multiple
+    ebs volume.
+        only for io1/io2 family - we can attach volume to multiple ec2 instance
+    - ebs bound to specific az.
+    - we can detach and attach to another ec2 instance quickly
+
+2. ebs volume type
+    - gp2/gp3 - General purpose SSD (cost effective storgae with low latency)
+    - io1/io2 - critical business application with high iops performance e.g databases
+    - st1 - low cost HDD, frequest access and intensive workloads
+    - sc1 - low cost HDD, less frequently accesed workloads.
+
+SSD - Solid state disk = high performance, pricey
+HDD - Hard drive disk = cheaper, low latency
+
+
+
+
+3. EBS Snapshot
+    - can copy Snapshot across az or region
+    - create a Snapshot for ebs volume in one az .
+    - restore the Snapshot as ebs volume in another az.
+
+    EBS Snapshot Features
+        - EBS Snapshot Archieve - move our Snapshot to Archieve tier for lower cost range..takes 24 to 72 take a backup.
+        - Recycle bin for ebs Snapshot: recover the deleted Snapshot within range, accedentaily deleted it will be re-stored..sepecify retention(1 day to a year)
+        - fast Snapshot restore - we can restore the ebs Snapshot to the volume much faster.
+
+
+4. if u need a high performance hardware disk - use ec2 instance store
+    - better i/o performance
+    - if u stopped ec2 instance storgae will be lost(ephemeral)
+
+
+5. ebs encryption
+    when u create a ebs 
+        - data at rest will be encrypted inside the volume 
+        - all data in flight movinf instance to volume is encrypted
+        - all Snapshot encrypted
+        - all volume created from the Snapshot encrypted
+    
+    encryption and decryption are handled tranparently by ebs volume and 
+    Snapshot itself.
+
+6. EFS - Elastic file system - only for linux ami
+    - it's a network file system that cann be mounted on many ec2 instance.
+    - efs works with ec2 instance in multiple-az
+    - encrypt at rest using kms.
+
+    Lifecycle managent storage class :
+        - standard: frequently accesed files 
+        - efs-ia: for infrequent access
+        - Archieve - rarely used files
