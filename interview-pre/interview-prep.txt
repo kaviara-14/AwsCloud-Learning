@@ -15,3 +15,63 @@ What steps would you take to ensure high availability?
 3. One of your EC2 instances becomes unreachable due to an underlying hardware failure. 
 What steps would you take to recover the instance?
     - if is asg group, it will automatically launch a ec2 instance
+
+4. You have an application that requires extremely low-latency communication between instances. How can you achieve this on Amazon EC2?
+    i will use placement groups, using placement groups we can control, how ec2 instance placed in the aws infrastructure..
+    cluster ip - placement strategy
+
+5.Your application needs to store sensitive data, and you want to ensure that the data is encrypted at rest on EC2 instances.
+ How can you enable this encryption?
+
+i will use ebs volume with encryption enabled..
+
+6. Your application requires GPU capabilities for machine learning or graphics-intensive workloads.
+ How can you launch EC2 instances with GPU support?
+    Aws ec2 p3 instance - ideal for machine learning workloads.
+    aws ec2 g4 instance - graphical intensive workloads like gaming
+
+7. You need to ensure that your EC2 instances are running in a private network and are not directly accessible from the internet. 
+How can you achieve this?
+
+i will setup a basiton host 
+
+8.You want to enhance the security of your EC2 instances by restricting incoming traffic only to specific IP addresses.
+ How can you implement this security measure?
+
+i will specify that address in security group.
+
+9. Your organization needs to store and share data files across multiple EC2 instances. 
+What service can you use to achieve scalable and durable file storage?
+
+    - i will use efs ..it's a network file system..
+    - using efs we can connect to multiple ec2 instance in different az .
+    - in efs, we have Lifecycle also
+        standard - store frequently accesed files
+        efs- Ia - for infrequent access files
+        archieve - for rarely acc files
+
+10. Your application requires the ability to quickly recover from instance failure and ensure data durability.
+ What type of Amazon EBS volume is recommended for such scenarios?
+
+ - i will use I/o family - this for high performance and critical performance
+
+11. Your organization needs to control the launch permissions of Amazon Machine Images (AMIs) and prevent accidental termination of EC2 instances.
+ What AWS service can help you manage these permissions effectively?
+
+    You can use AWS Identity and Access Management (IAM) to manage launch permissions
+    for AMIs and control who can launch instances from specific AMIs.
+
+12. Q : Your organization needs to host a web application that requires consistent CPU performance and low latency. 
+Which EC2 instance type would you recommend, and why?
+
+ I will use memory optimized.with the “c5” instances offering higher CPU performance and 
+ the “m5” instances providing a balance of compute and memory resources.
+
+13. Your organization wants to reduce costs for development and testing environments, 
+which are only required during specific hours of the day. How can you achieve cost savings?
+
+    - EC2 instance scheduler will only allows you to automatically start and stop EC2 instances based on a defined schedule, 
+
+14. Your application needs to support both IPv4 and IPv6 traffic
+. How can you ensure that EC2 instances can handle both types of traffic?
+    - we need to enable dual stack network on your vpc.this will allow our ec2 instance connect to both  
