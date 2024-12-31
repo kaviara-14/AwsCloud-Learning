@@ -110,6 +110,7 @@ Internet Gateway.
 
 9. vpc flowlogs
     * capture information about the ip traffic going to and from your network interface in your network.
+    they provide detail information including source and destination IP addresses, ports, and protocols.
     3 kinds of flowlogs
         - vpc flow logs
         - Subnet flow logs
@@ -127,10 +128,14 @@ we can use site-to-site vpn connection
 attach vpn gateway in vpc and attach customer gateway in on-premises..
 using this we will do site to site vpn connection privately using Public  network
 
-11. use transit gateway we can connect to multiple vpc ..
-these vpc can talk to each other
+11. AWS Transit Gateway is a service that enables multiple VPCs, VPNs, and Direct Connect connections to be connected through a single gateway
 
 supports ip multicast
+
+12. How does a Transit Gateway simplify VPC and VPN connectivity?
+     Transit Gateway acts as a central hub that allows you to connect multiple VPCs, VPNs, and Direct Connect connections.
+      This reduces the need for complex VPC peering arrangements or VPN connections.
+
 
 11. using traffic mirroring, we can inspect the traffic or filter the traffic..
 going through in our vpc
