@@ -1,0 +1,24 @@
+Route53
+    - Route53 provides DNS as a service. 
+
+    Using DNS we can map our dns to the ip address
+
+    Why do need Route53 ?
+        * all our service uses ip only, ip address hard to remember.
+        * ip address changes..
+    
+    - do a domain registration in route53 or it will accept third party domain.
+    - in Hosted zone, we will map our registered domain to load balancer or any particular ip address.
+    - do health checks also..whether the web servers are active or not. 
+
+Public hosted zone :
+    A Public Hosted Zone is used to manage DNS records for a domain
+     that can be accessed over the internet.
+
+private hosted zone
+A Private Hosted Zone is used to manage DNS records for resources in an Amazon Virtual Private Cloud (VPC). 
+It allows DNS resolution for resources that are private and not accessible over the internet.
+
+Key Points:
+Used to route traffic for resources within a VPC.
+Records in a private hosted zone are accessible only from resources inside the VPC(s) associated with the hosted zone.

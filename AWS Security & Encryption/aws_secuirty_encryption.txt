@@ -1,0 +1,65 @@
+1. Encryption in flight(Tls) - transport layer security
+
+    * client sends the request to server, before sending to server..
+    * we will use tls encryption mechanism to encypt the data..at the client side
+    only the server can decrpyt the encrypted the data suing tls decrpytion.
+    * tls helps https 
+
+2. server side encryption 
+    server will encypt the data before storing and decrpyt the data while sending
+    back to client
+
+3. client side encryption
+    client side will encypt the data, store it to server as encrypted data..
+    while client requesting the data..we will decrypt and show to the client
+
+4. KMS - Key Management service
+    
+    Using aws kms key we can encrypt and decrypt the data using key.
+
+    let say i want to store a credit card details in amazon s3.
+
+    i will create kms customer master key, here we have 2 types symmetric or ay symmetric.
+
+    symmetric - we will use one key for both encrypt and decrpyt
+    ay symmetric - we will use 2 keys one for encrypt and one for decrpyt.
+
+    i will create a key with symmetric..once i created..use this key i will encrypt the credit card details
+
+    attach a policy : only few iam users can decrpyt the data..
+
+    i will encrypt the data and store in s3 bucket..
+
+    if i want to retrieve i will use the same key to decrpyt the data
+
+    rotation : if i want i can maually rotate the key and if not we can set automatic rotation
+
+5. SSM - AWS Storage Manager.
+
+    In SSM we can store any configuration details or any sensitive information.
+        - if it is a sensitive information, we can encrypt using KMS and store in ssm.
+        - parameters will be stored in hierarical - so that we can organise the information
+        - using ami policy we can restirct the users
+        - it will provide versioning like who edited or modified
+
+6. AWS Secret Manager
+
+    - using aws Secret Manager, we can store the sensitive information like username, password, token securely.
+    - aws Secret Manager automatically  encrypt and decrypt the data while storing and retrieving the data
+    - it support rotation of the secrets for the periodic time
+    - it will support auditing and monitoring.
+    - using ami policy we can restirct the users
+
+7. AWS Certificate Manager
+
+    - using this aws Certificate Manager, we can deploy and manage tls Certificate to our application
+    - so that it will be accessed by https
+
+    attach the Certificate to load balancer, api gateway or cloud front
+
+8. WAF(Web application firewall)
+
+    - WAF works on the layer 7 which is application layer, it protects u from the web exploits or any sql injection attack
+
+9. AWS Shiled protects you from DDOS attack which are attempts to overwhelm your application with too much traffic to make it slow or unavailable.
+layer 3 / layer 4 

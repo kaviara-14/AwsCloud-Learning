@@ -1,0 +1,146 @@
+VPC - Virtual private cloud while creating vpc..we will assign ip address range using cidr block 172.2.0.0/16 - 6553 Ip address
+
+for Subnet - we will break the ip address range assign ip address range for each Subnet
+
+1. Internet Gateway - Internet Gateway allows resource in a vpc connect to the Internet.
+using Internet Gateway user can access your vpc Public Subnet.
+
+2. Public Subnet(load balancer) - in Public Subnet we have a load balancer - that forwards the traffic
+3. Route table - route table route your request from load balancer to the actual ec2
+4. Security group - will validate your incoming request 
+5. private Subnet(ec2 instance) - once validate our request will reach ec2 instance in private Subnet.
+6. using NAT Gateway - we can connect the private Subnet ec2 instance to the Internet.
+ it masks the ec2 ip address(Public Subnet)
+Route :private Subnet(route table) - nat Gateway - Internet Gateway
+
+7. NACL - Network Activity control list is stateless.
+
+    * we can use this NACL to add Security in Subnet level
+    * NACL will allow or deny the request.
+    * since it's stateless both incoming and outgoing request are evaluated
+    * higher precdence for a lower number, lat role is streak(*)
+    * if we have 100 ec2 instance, using NACL we can add Security group to all 100 ec2 instance.
+    * if something is blocked in NACL level, it will not allow inside in the ec2 instance.
+
+8. Security group is stateful
+    * Security group we can add it in ec2 instance level.
+    * since it is a stateful, it will have the knowldege of incoming request, so it will allow outgoing request automatically
+    * let say if port 8080 denied in nacl level but Security group allowed port 8080...the request will be blocked in nacl level.
+
+
+9. stateful means it remembers the incoming request and allow the outgoing request automatically.
+stateless means every request is idependent
+
+
+Depth concept
+
+1. CIDR - Classless Inter domain routing
+    * method for allocating ip address.
+    base ip : 10.1.12.1
+    Subnet mask : how many bits can change in the ip. /0,/24,/32.
+    /8 - 255.0.0.0
+    /16- 255.255.0.0
+    /24 - 255.255.255.0
+    /32 - 255.255.255.255
+
+    deep dive :
+        * 192.164.0.0/32 - 2 power 0 - 1 ip.
+        * 192.164.0.0/31 - 2 power 1 - 2 ip(192.164.0.0,192.164.0.1)
+        .
+        .
+        * /29 - 2 power 3 - 8 ip.
+        */24 - 2 power 8 - 256 ip.
+        * 16- 2 power 16 - 65,536 ip
+        * 8 - 2 power 24 - 
+        * 0.0.0.0/0 - all ips.
+
+2. we can have 5 ipv4 cidr in our vpc - that's the limit
+
+3. AWS will reserve 5 ip address in each Subnet.(first 4, last 1)
+    10.0.0.0 - Network address
+    10.0.0.1 - reserved for aws for vpc router
+    10.0.0.2 - mapping dns
+    10.0.0.3 - future use
+    10.0.0.255 - network broadcast private..aws doesn't support broadcast in vpc.
+
+4. if your ec2 instance in Public Subnet it's not getting Internet access even after u used
+Internet Gateway.
+    check the route table,using this only ec2 instance connect to the Internet.
+
+5. Bastion host
+    * using Bastion host, we can ssh into private ec2 instance
+    * the Bastion host is in Public Subnet
+    * make sure only few ip address are allowed
+    * using Bastion host,we can install packages, any software, upgrades to private
+    ec2 instance
+    * make sure in private ec2 instance Security grp, allow ssh into bastion host Security grp.
+
+6. ephemeral ports
+
+    Ephemeral ports are temporary, short-lived ports used by a client machine to establish a connection to a server.
+    client sends the request to server(server ip,port) and server responds back to the client(client ip,port):
+        - source ip : machine ip 
+          source port : os port
+
+        - dest ip : server ip
+            dest port: 443
+
+    * Ephemeral ports are temporary and are used solely to maintain the communication for the duration of the connection.
+    * Reuse: Once the connection is closed, the ephemeral port is freed and can be reused for future connections.
+
+
+7. VPC Peering - using vpc Peering we can privately connect two vpc.
+                - make sure no overlap between cidrs.
+                - make them behave as if they were in the same network.
+                * cross account/region
+        e.g vpcA - vpcB(connect using vpc peering)
+
+8. vpc endpoints..
+    let say in my vpc i have ec2 instance in private Subnet, using vpc endpoints i can privately
+    communicate with other aws services like dynamodb, s3 and cloud watch.
+    without going through Public Internet
+
+    tow types :
+        * interface endpoints(ENI)
+            - supports all services
+            - pay per use
+        * Gateway endpoints (Route table)
+            - supports s3 and dynamodb services
+            - free
+
+9. vpc flowlogs
+    * capture information about the ip traffic going to and from your network interface in your network.
+    3 kinds of flowlogs
+        - vpc flow logs
+        - Subnet flow logs
+        - elastic network interface flow logs
+    * helps to troubleshoot & monitor connectivity issues
+
+    Architecure :
+        vpc flowlogs - cloudwatch logs - cloudwatch contributor insights(top 10 ip address)
+
+
+10. connect vpc to on-premises privately?
+
+we can use site-to-site vpn connection
+
+attach vpn gateway in vpc and attach customer gateway in on-premises..
+using this we will do site to site vpn connection privately using Public  network
+
+11. use transit gateway we can connect to multiple vpc ..
+these vpc can talk to each other
+
+supports ip multicast
+
+11. using traffic mirroring, we can inspect the traffic or filter the traffic..
+going through in our vpc
+
+12. ipv6 - 3.4*10 power 38 ip address
+    no private range for ipv6 in aws, all are Public
+    u can enable ipv6 to operate as dual-stack mode
+    communicate through Internet gateway.
+
+    u r ec2 instance will get private ipv4 and Public ipv6
+
+13. egress-only Internet gateway used for connecting Internet to ipv6 private ec2 instance. only outbound is possible
+incoming is disabled.
