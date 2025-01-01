@@ -1,0 +1,172 @@
+Amazon S3 - Simple storage service
+using this we can store our data upto 5 tb..
+it gives you high Availability, security , durability, high perfomrance and cost effective.
+
+1. S3 is regional or global
+
+    -Amazon S3 is a regional service, meaning that your data is stored in the specific AWS Region you choose. When you create an S3 bucket,
+  it resides within a single region, and AWS manages the data replication within that region to provide high durability.
+
+    - However, S3 can be used globally through features like Cross-Region Replication (CRR) or Amazon S3 Transfer Acceleration, 
+    which help distribute data across regions or speed up data transfer for global applications. 
+
+
+2. S3 bucket policy
+    - json based policy
+    - using bucket policy we can allow or either restict users to access the bucket.
+    - we can restrict those user actions like get, delete , create.
+
+3. S3 Static website Hosting
+    in s3 we can host Static website and have them accessible from the internet.
+     we need to enable Static website Hosting and  we need public access.
+
+4. S3 Versioning
+    - we can version your files in s3.
+    - enable the bucket Versioning.
+    - if i upload a same file, it will be versioned..we have multiple copies..
+    if u want we can re-store them.
+    - if we delete the file, since we are using Versioning..it will not be deleted..
+    it uses delete marker..if u want later we can re-store.
+     - existing files..after u enabled versioning will be null version.we will
+     - suspending versioning..doesn't delete the existing file..
+
+
+5. S3 Replication
+    - cross region replication
+    - same region replication
+
+    first we need to enable versioning.copy async
+
+    using cross region replication we can replicate and copy the bucket object across
+    multiple region.
+
+    using same region replication we can replicate and copy the data in the same region.
+
+    after u enabling replication, the only new objects are replicated
+    existing data and object failed replication replicated using batch replication.
+
+6. storage class
+    - S3 Standard 
+    - s3 Standard Infrequent access
+    - s3 one Zone-Infrequent access
+    - s3 glacier instant retrievl
+    - s3 glacier flexible retrievl
+    - s3 glacier deep archieve
+    - s3 intelligent tiering
+
+    * s3 Standard
+      - This is designed for frequently accessed data, offering low latency and high durability.
+       It's ideal for dynamic applications like web content or analytics
+
+    * s3 Standard-Infrequent access
+        This is for data that's accessed less often but still needs rapid access when required.
+         It’s a cost-effective choice for backups or disaster recovery.
+
+    * s3 One zone-Infrequent access
+        Similar to Standard-IA but stores data in a single Availability Zone, reducing costs. 
+        It's suitable for recreatable data or secondary backups where resilience isn't critical.
+    
+    * s3 glacier instant retrievl
+        archieve data accessed once a quarter requires with instant retrieval in milliseconds.
+
+    * s3 glacier flexible retrievl
+         archival data access once a year, with retrieval times ranging from minutes to hours, depending on the priority.
+            It’s cost-effective for long-term storage like regulatory archives.
+    
+    * s3 glacier deep archieve
+        - This is the most cost-effective storage for data that is rarely accessed, with retrieval times of 12 to 48 hours.
+         It’s ideal for long-term data retention requirements.
+
+    * s3 intelligent tiering
+        - moves object automatically between  tiers based on usage patters,
+        for cost optimization..no manual intervention
+
+7. can we move s3 objects from glacier to other storage class
+
+    * we can do this 2 ways..
+        - first, we need to restore the object from glacier s3..
+        - once the object is restore from glacier we can move it s3 Standard if it frequently
+        accessing.
+        - second is , we can use intelligent tiering..this will automatically moves 
+        the object based on the access patern
+
+8. use lifcycle in s3..move object automatically based on the usgae .
+
+Transition rules :
+    - move Standard ia - 60 days after creation.
+    - we can set expiration action - to delete after sometime.
+
+9. requester pays
+    - with requester pays bucket, the requester pays the cost of the request
+    and the data download from the bucket.
+
+10. S3 Event Notification
+    - events are object created, object deleted, object restored..
+    - whenever a event accord, using this event Notification..we can trigeer other aws service
+    like sqs,sns and lambad function..make sure we have proper resource based policy for this 
+    - we can use aws event bridge..for filtering..from there we caan send..
+    to 18 aws service.
+
+11. baseline perfomrance
+    - 3500 put/copy/post/delete - per second..per prefix in bucket
+    - 5550 - GET/Head request per persond..per prefix in bucket
+
+12. recommed to upload the file as multi-part if the file is greater 5 gb.
+for parallel uploads
+
+13. s3 transfer Acceleration
+  S3 Transfer Acceleration is a feature that speeds up the upload and download of files
+    to and from Amazon S3 buckets over long distances.
+     Let’s say we have a file in the United States, and we want to upload it to an S3 bucket in Australia. Here’s how S3 Transfer Acceleration works:
+
+        First, we upload the file to an edge location in the United States, which is much quicker because the edge location is geographically closer to the file’s source.
+
+        Initially, the file is uploaded through the public internet to the edge location.
+
+        Once the file reaches the edge location, it is transferred from there to the S3 bucket in Australia. But instead of going over the public internet, the file is sent over Amazon’s fast, private network.
+
+14. AWS S3 storage lens
+   Amazon S3 Storage Lens provides detailed analytics on your S3 storage usage and access patterns,
+    helping optimize costs and monitor data activity
+
+15. S3 Encyption
+
+    - Server side encryption with s3-managed key - default
+    - Server side encryption with aws kms
+    - Server side encryption with customer provided key  
+
+16. we can add policy to ensure all the objects created..will be with 
+bucket policyy
+
+17. S3 CORS
+    using CORS(Cross origin resource sharing) is feature that allows web 
+    applications hosted on one domain able to access resource from an s3 bucket
+    located on another c=domain
+
+18. s3 access logs
+    - any request made to s3 from any account whether it is authorised or
+    denied it will be logged into another s3 bucket..
+    - data analaysed by athena...
+    - enable server access logging..
+    -- create a new bucket for logs..
+
+19. pre-signed url
+    - let say i created a bucket which is private..i want to share this bucket to another person outside of the organization without making
+    as public...i will generate a pre-signed URL.
+    - I will share that pre-signed url to another person..which will have expiration date..
+    - with this they can access the bucket and download the file..
+
+20. glacier vault look.
+    - create a vault lock policy
+    - once the object is inserted into galcier vault..object can't be deleted
+    - but we read many(WORM - Write once read once)
+
+21. S3 object lock
+    s3 object locks allows to delete or over written a objects in the s3 bucket.
+    two models :
+        1. governance mode: allow user with specific permission to over wrtite or delete
+        2. compileance mode : prevent anyone, inclusing administrator..from deleting
+    
+22. access point
+    using access point, create a access point we can allow one set of users to read and write a file.
+    another set of users to read and write a another file...

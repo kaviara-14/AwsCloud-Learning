@@ -1,0 +1,27 @@
+
+1. cloud front
+    we can cache them in them edge location.
+
+    - let say i am in us and accessing the s3 bucket in Australia.
+    - first the request will go through the edge location, from there 
+    it will go to s3 bucket in Australia using aws private network.
+    - edge location will cache the request and store 
+    - someone is requesting the same content..it will serve quickly from 
+    the edge location.
+
+    - content is delivered from edge.
+
+    - cloud front for s3 bucket
+    - cloud front for ec2/alb .
+    - cloud front for geo-location - we can allowlist or blocklist the country
+
+2. AWS global accelerator
+    - no caching
+    - network traffic routing to imporive perfomrance.
+
+    let say i have a application deployed in india it's alb.
+    i want customer from us, france, japan can access it.
+
+    i will use this aws global accelerator, with this customer in us can talk to 
+    the neaby edge location..from the edge location..
+    they will routed to aws load balancer in india via private network.
