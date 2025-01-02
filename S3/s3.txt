@@ -141,7 +141,7 @@ bucket policyy
 17. S3 CORS
     using CORS(Cross origin resource sharing) is feature that allows web 
     applications hosted on one domain able to access resource from an s3 bucket
-    located on another c=domain
+    located on another domain
 
 18. s3 access logs
     - any request made to s3 from any account whether it is authorised or
@@ -162,7 +162,7 @@ bucket policyy
     - but we read many(WORM - Write once read once)
 
 21. S3 object lock
-    s3 object locks allows to delete or over written a objects in the s3 bucket.
+    s3 object locks protects you to delete or over written a objects in the s3 bucket.
     two models :
         1. governance mode: allow user with specific permission to over wrtite or delete
         2. compileance mode : prevent anyone, inclusing administrator..from deleting
@@ -170,3 +170,7 @@ bucket policyy
 22. access point
     using access point, create a access point we can allow one set of users to read and write a file.
     another set of users to read and write a another file...
+
+23. datasync
+    AWS DataSync is ideal for online migrations where you need to transfer data over the network.
+     It can handle large volumes of small files efficiently,

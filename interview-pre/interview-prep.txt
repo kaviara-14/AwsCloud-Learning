@@ -180,3 +180,52 @@ A route table in a VPC determines where network traffic is directed. It specifie
     Maximum VPC Peering Connections: 50 peering connections per VPC by default.
     Maximum Route Tables: 200 route tables per VPC.
     Maximum Subnets per VPC: 200 subnets per VPC.
+
+29. Explain the significance of S3 Access Control Lists (ACLs) and S3 Bucket Policies for fine-grained access control.
+
+    * using Bucket policy we can allow or deny permissions in Bucket level .
+    * ACL will allow you to add allow or deny permissions in both object level and bucket level
+
+30. wht is the purpose of s3 select
+    using s3 select, we can retrieve the specific set of data's from the object...
+
+31. Explain how to transfer large volumes of data to and from S3 efficiently, especially for migration and data backup purposes.
+    - we can use snowball device 
+    - we can use aws datasync
+    - we break the file upload into s3 
+
+32. Explain the differences between server-side encryption options in S3, including SSE-S3, SSE-KMS, and SSE-C. When would you use each of these options?
+
+— SSE-S3 (Server-Side Encryption with S3-Managed Keys): In this option, Amazon S3 manages the encryption keys. It’s a good choice for simplicity and is suitable for most use cases.
+— SSE-KMS (Server-Side Encryption with AWS Key Management Service): SSE-KMS allows you to use AWS Key Management Service to manage encryption keys. It provides more control and auditing capabilities and is ideal for compliance requirements.
+— SSE-C (Server-Side Encryption with Customer-Provided Keys): SSE-C enables you to use your own encryption keys, and you are responsible for key management. This is suitable for scenarios where you want complete control over the keys.
+
+33. Explain how you can control costs when using S3 storage classes, especially in a large-scale environment.
+    - Use s3 Lifecycle policy
+    - use se intelligent tiering
+
+34. How does versioning work in S3, and what are the benefits and considerations for enabling it?
+    - Enable versioning in s3 bucket.
+    - once u enabled, already existing data considered as null version.
+    - if u upload a existing file, it will not be replaced..but it will be version..i have older object copy also..if i want i can restore.
+    - if i am delteing any object..it will not be deleted...aws add delete-marker,.if u want we can restore..
+
+35. AWS Glue
+        - AWS Glue is a etl service move and prepare data for analytics. with this aws glue..we can extract the information from any where..
+        tranform the data into required format and load into any one of the analytics server like Amazon s3 and aws redshift.
+
+36. how do u generate a pre-signed url in lambda function?
+    in lambda, there is function called
+        generate_presigned_url('get_object',params={bucket name,key}, expiresin=3600)
+    
+37. You are working with an S3 bucket that stores backup data. The backup data needs to be retained for 5 years, and after that, it should be deleted.
+ How would you set up the data retention policy in S3?
+
+    in the lifecycle policy i will store the data s3 glacier deep archieve, so that it will be retained whenever we needed
+
+        After transitioning your backup data to Glacier Deep Archive,
+    you can set the expiration rule in the lifecycle policy to delete objects after 5 years, as per your requirement.
+
+38. How does Amazon S3 handle data replication for disaster recovery purposes?
+    Amazon S3 offers two types of replication — Cross-Region Replication (CRR) and Same-Region Replication (SRR) — that allow you to replicate your data to different AWS regions or within the same region, respectively.
+    This helps in ensuring high availability and disaster recovery of your data.
