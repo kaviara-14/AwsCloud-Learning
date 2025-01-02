@@ -1,5 +1,5 @@
 1. AWS lambda
-    - aws lambda is a serverless which means we don't need to create or configure any servers, it is taken care by aws itself.
+    - aws lambda is a serverless compute which means we don't need to create or configure any servers, it is taken care by aws itself.
     - we can write code and deploy, aws take care of everything
     - aws lambda will not run automatically, we can need to configure an event...like from from cloudwatch or s3..etc.,
     - once the execution is completed it will tear down the infrastructure..it created..pay as u go..
@@ -33,15 +33,16 @@
 4. reserved concurrency
     - we can set limit of lambda function, let say this lambda function
     only have 50 concurrent execution.
-    - each invocation over the concurrency limit will trigger throttle.
+    - each invocation over the concurrency limit will throw a throttle error.
 
-    for async invocation : it will keep on retry for 6 hours..retry interval between 1 seconds to 5 minutes.
+    for async invocation if it is went to throttle: it will keep on retry for 6 hours..retry interval between 1 seconds to 5 minutes.
 
 5. what is cold start and how provision concurrency helps
     whenever the function is triggered for the first name or it is triggering back after the 
     long time..it will be slow execution..because it needs to intialize the code & dependencies..it will take some time ..
 
     using provision concurrency..we can set few lambda in always warm.
+    
     and concurrency is allocated before the function is invoked.
 
 6. lambda snapstart
@@ -108,3 +109,90 @@ lambda@edge
     give user identity to interact with our web or mobile
     * Cognito user pool - sign in functionality for app users.
     * Cognito identity pool - give aws credentails to users so they can access resorce temporary 
+
+14. What are the main components of a Lambda function?
+    - Handler : it's entry point for lambda function , specifies which function to be invoked.
+    - Event  : input passed to lambda function, when it triggered..here we have inputs
+    - context : contains runtime information such as function name, memory limit and execution time
+    - environment variables: it holds the sensitive information of the lambda function
+
+15. What are the different ways to invoke a Lambda Function?
+    - API Gateway
+    - Event Notifications
+    - Cloud watch
+
+16. Package Dependencies in aws lambda
+    - Install the required libraries locally and create a deployment package that contains both dependencies and function code.
+    - zip the deployment package and upload it aws lambda
+
+17. Lambda layers
+    - using lambda layer we will able to re-use the code and dependencies we used across multiple lambda function.
+    - install dependencies locally and zip it and upload to layers..once u run the execution..with the dependencies in the layers
+    u will able to run
+    - we can 5 layers per lambda
+    - instead of adding multiple zip files..we can use lambda layer
+
+18. How can we deploy dependencies alongside Lambda code?
+    - Lambda Layer
+    - package dependencies
+    - docker file 
+
+19. How can we optimize the performance of Lambda functions?
+    - set memory limit
+    - set provisioned concurrency for snow start 
+    - set the concurrency limit 
+    - if the lambda is having dependencies, try to use lambda layer 
+    - if it is java cod, try to use lambda snapstart
+
+20. What tools can you use to monitor and debug Lambda functions?
+    Amazon CloudWatch
+
+21.Can Lambda functions call other Lambda functions?
+    Yes, Lambda functions can call other Lambda functions.
+    - synchronus invocation(RequestResponse)
+        this will trigger another lambda function and wait for them to execute and once it is successful completed, it will continue
+        import boto3
+
+        client = boto3.client('lambda')
+
+        response = client.invoke{
+            FunctionName='MyOtherLambdaFunction',
+            InvocationType='RequestResponse',  # This makes it synchronous
+            Payload='{"key": "value"}'
+        }
+    - asynchrnus invocation
+        this will trigger the another lambda function and doesn't wait for response.
+
+        import boto3
+
+        client = client.boto3('lambda')
+
+        response = client.invoke{
+            FunctionName='MyOtherLambdaFunction'
+            InvocationType='Event'
+            Payload='{"key":"value"}'
+        }
+
+22. How do you implement a simple REST API using Lambda and API Gateway?
+    1. create a lambda function
+    2. go to api Gateway -> create rest api -> use get method -> copy the arn paste there and save
+    3. deploy the api 
+
+23.How do you configure a Lambda function to process events from an S3 bucket?
+    1. create a lambda function and attach a role, so that it can access.
+    2. go to s3 bucket, in s3 bucket we have event notification
+    3. choose the event type and configure the lambda
+
+
+24. How do you configure a Lambda function to write data to a DynamoDB table?
+    1. create a DynamoDB table with primary key and secondary key
+    2. create a lambda function with role so that it can access the DynamoDB
+    3. use DynamoDB SDK to access DynamoDB from the lambda
+    4. use put item pass the attribute
+    5. test 
+
+25. How do you gradually shift traffic to a new version of a Lambda function?
+    1. create a new version of lambda function
+    2. create an alias records
+    3. shift the traffic to the new version partially
+    4. if working pass complete traffic
