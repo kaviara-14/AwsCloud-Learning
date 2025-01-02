@@ -1,0 +1,6 @@
+cloud formation is a declarative way of creating aws resource.
+it will create infrasucture for us with a code(ias)
+
+- define the code in json or yaml file
+- any error, we can rollback if we want
+

@@ -1,0 +1,49 @@
+1. sqs - sqs is message queue services.
+t offeres u store and manage the message in queue and ensure and ensure message are processed asynchronusly.
+
+two types of queue.
+    1. general purpose
+        Messages might be delivered more than once and might
+         not be in the exact order they were sent.
+    2.FIFO queue
+        Ensures that messages are processed exactly once and in the exact order they are sent.
+2. SNS 
+    Simple Notification Service (SNS) is a fully managed messaging service that allows you to send messages
+     or notifications to a large number of subscribers
+    
+3. kinesis
+    - Amazon Kinesis is a fully managed service for real-time streaming data processing. 
+    It consists of components like Kinesis Data Streams for collecting data, Kinesis Data Firehose for loading data into destinations, 
+    and Kinesis Data Analytics for real-time analytics.
+    - Kinesis is scalable, durable, and ideal for use cases such as real-time analytics, 
+    IoT data processing, and video streaming."
+
+
+4. Athena 
+
+    using athena we can query the object stored in the s3 object
+    it offers u standard sql language  to query
+
+    Amazon quicksight - for reporting and dashboard
+
+
+5. AWS Sagemaker is used for building(Build, train, deploy) ML Models for every developer and data scientist.
+
+6. AWS Kendra is document searched service using this we can extract
+answer from within a document
+
+7. rekognition: face recogntion
+
+8. transibe - audio to text
+
+9. polly - text to audio
+
+10. translate - transalations
+
+11. lex: build conversational chat bots
+
+12. comprehend - natural language processing
+
+13. forecast - build highly accurate forecast
+
+14. personalize - real-time personal recommendations

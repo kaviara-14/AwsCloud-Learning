@@ -215,3 +215,10 @@ lambda@edge
     - initializtion phase
     - invocation phase
     - Shut down phase
+
+30. SQS and lambda
+ using sqs we can retry infinite times..if the lambda function failed..we can put in dlq(dead letter queue) after 5 retries
+
+31. sqs fifo with lambda
+    using sqs fifo..let say our lambda failed..because it's fifo..it will keep on retry
+    we can this in dlq.so our next record will process
