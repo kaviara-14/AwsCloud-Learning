@@ -1,0 +1,110 @@
+1. AWS lambda
+    - aws lambda is a serverless which means we don't need to create or configure any servers, it is taken care by aws itself.
+    - we can write code and deploy, aws take care of everything
+    - aws lambda will not run automatically, we can need to configure an event...like from from cloudwatch or s3..etc.,
+    - once the execution is completed it will tear down the infrastructure..it created..pay as u go..
+    - each lambda function will have a role attached..role only define wht services lambda can access or not
+
+2. benefits 
+    - if we want we can increase the memory and execution time, we can do.
+    - lambda can use 1000 concurrent function by default, we can set a concurrent limit to each function.
+    - environment variables are key-value pairs, we can store the configuration settings & sensitive information
+    - can we use to cloudwatch to monitor the execution
+
+2. lambda supporting language
+    - python
+    - nodejs
+    - java
+    - go
+    - .net core 
+    - ruby
+
+3. Limitation of lambda
+    - The memory allocation for a Lambda function ranges from 128 MB to 10 GB
+    - The maximum execution time for a Lambda function is 15 minutes (900 seconds)
+    - The total size of environment variables cannot exceed 4 KB
+    - disk capacity in the function container is between 512 MB to 10GB.
+    - Lambda supports 1,000 concurrent executions per account per region.
+
+    - the maximum size of compressed zip is 50.
+    - size of uncompressed zip is 250 mb
+    - can use /tmp directory to load other files at startup
+
+4. reserved concurrency
+    - we can set limit of lambda function, let say this lambda function
+    only have 50 concurrent execution.
+    - each invocation over the concurrency limit will trigger throttle.
+
+    for async invocation : it will keep on retry for 6 hours..retry interval between 1 seconds to 5 minutes.
+
+5. what is cold start and how provision concurrency helps
+    whenever the function is triggered for the first name or it is triggering back after the 
+    long time..it will be slow execution..because it needs to intialize the code & dependencies..it will take some time ..
+
+    using provision concurrency..we can set few lambda in always warm.
+    and concurrency is allocated before the function is invoked.
+
+6. lambda snapstart
+    - improve your lambda performance upto to 10x and above for java
+    - when enabled, function is invoked from pre-package state..
+
+7. customation at CDN Content(edge) 
+
+You can run custom JavaScript or Python/Node.js code at these edge locations to 
+modify requests or responses based on your business logic (e.g., authentication,
+ content personalization, A/B testing, geolocation-based routing
+cloudfront function and lambda@edge..
+
+cloudfront function(managed by cloudfront)
+    - javascript code
+    - handles millions of request per seconds
+    - cloud front modify viewer request/viewer response
+    - max execution time < 1 ms
+
+lambda@edge
+    - python or nodejs
+    - thousad of request per seconds
+    - cloudfront modify viewer request/viewer response and origin function and origin response
+    - max.execution time 5-10 seconds
+
+8. Lambda function in vpc.
+
+    let say i want to access a rds database in a private subnet.it's inside a vpc..how will i do..
+
+    1. first, while creating a lambda function..choose the vpc and select a private subnet and attach a security group.
+    2. so this will create a eni in private subnet..with the help of eni lambda can access the rds database in private subnet
+
+9. use rds proxy
+
+    in the above case whenever the code is concurrently executed...lambda function will open a new connection in rds database.so there are too many
+    open connection..database will have high latency...we can handles this using rds proxy..
+
+    RDS proxy pools and manages connections, reducing the number of connections directly to the database..rds proxy will use existing connection for multiple invocations
+
+10.RDS Invoking lambda and event notification
+
+    - RDS can be configured to trigger a Lambda function, enabling actions like processing newly added records or sending notifications to users.
+
+    - RDS Event Notifications allow you to monitor changes in the RDS environment, such as database instance creation, deletion, backups, or failures.
+    you don't get information about the data.
+
+11. API Gateway
+    In API Gateway, we can create REST APIs to create methods like GET, POST, DELETE, and more. These methods can be configured to trigger an AWS Lambda function
+    to handle the request and process the response.
+
+    e.g..for get method..i will lambda function to get all the data..
+
+12. STEP function
+
+    build serverless visual workflow to orchestrate your lambda function.
+
+    features: parallel, sequence, conditions, error handling..
+
+    can intergrate with ec2,ecs, on-premise server, api Gateway, sqs queue etc.
+
+    possibility for implementing human approval features.
+
+13. Cognito
+    give user identity to interact with our web or mobile
+    * Cognito user pool - sign in functionality for app users.
+    * Cognito identity pool - give aws credentails to users so they can access resorce temporary 

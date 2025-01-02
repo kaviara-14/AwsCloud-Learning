@@ -1,0 +1,9 @@
+1. boto3 is a python SDK for aws, using boto3 we can able to access other services from aws lambda
+
+import boto3
+
+ec2 = boto3.client('ec2')
+iam = boto3.client('iam')
+
+
+
