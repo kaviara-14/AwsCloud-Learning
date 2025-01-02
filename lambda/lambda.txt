@@ -196,3 +196,22 @@ lambda@edge
     2. create an alias records
     3. shift the traffic to the new version partially
     4. if working pass complete traffic
+
+26. Can you explain how AWS Lambda handles retries in case of a function failure?
+    use asynchronus invocation, this will retry for 6 hours..execution time between 1 seconds to 5 minutes
+
+27. How does AWS Lambda handle versioning and aliases? Can you explain their purpose and how they are used?
+    - each time we deploy a code, aws lambda will create a version of it..it's immuttable..meaning it will not change once it is published
+    - alias is a pointer on that version 
+
+28. What is the maximum execution timeout for an AWS Lambda function, and how would you handle long-running tasks that exceed this limit?
+    15 minutes..if i want to handle i will use 
+    1. step function that will handle large complex task.
+    2. if it's always exceeding i will try to use ec2.
+    3. i will use asynchronus invocation, even if it is faail..it will retry
+    4. try to use lambda layer
+
+29. lifecycle of a Lambda execution
+    - initializtion phase
+    - invocation phase
+    - Shut down phase
