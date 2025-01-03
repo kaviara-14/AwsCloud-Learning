@@ -1,0 +1,26 @@
+dynamodb - NOSQL database
+    * fully managed, serverless, High available with Replication across multple AZ.
+
+    * create a table..each table has primary key
+    * we can add columns any time we want
+    * we can scale up  and scale down the read and write capacity.
+
+
+    provision mode :
+        if it is predicatbale workloads, go and manually define read and write capacity.
+    
+    on demand mode
+        automatically scale up and scale down based on the workloads
+        unpredictable workloads.
+    
+dynamodb Accelerator(DAX)
+    Using DAX we cache the read..
+    e.g ..we are getting lot of reads..we can use this DAX to cache
+    the information..to reduce the latency
+
+dynamodb - stream processing
+    - using dynamodb stram we can get to know modification(create/update/delete) in 
+    a table.
+
+    e.g. react to changes in real time(welcome email to users)
+    invoke aws lambda on changes to your dynamodb table

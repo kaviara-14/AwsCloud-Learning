@@ -1,0 +1,27 @@
+Aurora
+    - Aurora is compitable with mysql and postgress
+    - 5x performance imporvement over mysql in rds and 3x performance over postgress in rds.
+    - Aurora storage grows automatically from 10 gb to 129tb
+    - Aurora can have up to 15 read replicas and the Replication process
+    is faster than rds.
+    - autoscaling for read replica
+
+High Availability
+    - takes 6 copies of your data across 3 AZ.
+    - self healing with peer-to-peer Replication
+    - shared storage volume
+    - one Aurora instance takes write(master)
+    - failover happens 30 seconds
+    - we can have 15 read replicas server reads and we have master to write.
+    - Supports Cross region Replication
+
+
+Aurora DB Cluster
+    - Writer Endpoint
+        (pointing to the master)
+        client talks to the writer endpoint and redirect to master db (write)
+    
+    - Reader Endpoint 
+        (point to read replicas)
+        connection load balancing - connet automatically to reader endpoints
+        client talks to reader endpoint and connected to anyone of the reader endpoint

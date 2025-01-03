@@ -1,0 +1,49 @@
+RDS - Relational database service
+it's managed db service for db use sql as a query language.
+we can create db in cloud this db managed by aws itself..
+
+it Supports: maridb, postress, mysql, oracle..
+
+automate storage scaling: let say we set a storage, but it going behind
+ the storage..aws will automatically auto scale the storage.
+
+
+Advantage :
+    - scaling storage capabilities
+    - multi az setup for dr
+    - read replicas for improved read performance...
+    - monitoring dashboard..
+
+Read replicas
+    - we can setup up to 15 read replicas
+    - using this read replicas, we can offload the work of primary db to this
+    read replicas.
+    - in this read replica, only read operations is only possibe.(which means select)
+    - within AZ, Cross AZ or Cross region
+    - Replication is aysnc(which means without acknowledgemnet its send the data)
+
+e.g let say i have an e-commerce application that is experiencing heavy
+traffic..in this case i can create read replicas..our main db will handle
+all the write operations...our read replicas will handle all the read
+operations
+
+multi-az
+    - in multi az aws automatically creates a stanby replica of the primary db in different az.
+    - primary db handles all the read and write, while stanby db will do synchronous Replication.
+    whatever any changes made to primary db are immediately copied to stanby db.
+    - if any hardware issue, az fail, network outrage..aws will automatically promote the stanby
+    to new primary.
+
+RDS - From single-Az to multi-Az
+    - when we we select this as multi-az 
+    - in the backend a snapshot taken of our db 
+    - and restored as a stanby db in another az
+    - sync Replication is established between the db
+
+custom RDS
+    if we use rds custom - u will not set storage autoscaling, multi az Supports and read replica.
+    it Supports microsfot sql and oracle.
+        - it will be hosted on ec2 instance
+        - u will get a root access
+        - install custom db extension or patches
+        - configure the os
