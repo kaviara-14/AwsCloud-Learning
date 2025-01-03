@@ -1,0 +1,6 @@
+schedule : using event bridge we cam schedule a corn job
+
+    e.g..for every day trigger this lambda function
+
+Event Pattern : react to event happening in the service
+    e.g some signed as root user, notify me

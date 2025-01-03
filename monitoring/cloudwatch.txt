@@ -1,0 +1,10 @@
+cloud watch will help you collect and analyse the logs,metrics.
+
+    - Metrics monitoring - collect about the system level metrics such as ram and cpu
+    - Centralised logs - we have all the logs from the services we used..easy to debug.
+    - alarm - create an alarm
+    - dashboard - create and visulize the logs a dashboard
+
+we can create a metrics filter and from there we can set a alarm to notify
+
+using subscription filter, we can filter the logs and send it to other aws services like lambda,s3,kensis

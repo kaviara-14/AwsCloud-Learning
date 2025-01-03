@@ -1,0 +1,25 @@
+using cloud trail we can get an history of api calls
+made within your aws account
+    1. sdk
+    2. console
+    3. cli 
+    4. aws services
+
+e.g 
+    if resource is deleted, investigat cloud trail .
+
+
+configure cloud trail with event bridge
+
+
+    - user deleting tables in dynamodb (api call)
+    - using cloud trail we can log the api call 
+    - using event bridge, we can look for the delete event
+    - send an alert using sns
+
+AWS Config 
+    using aws Config we can audit our aws resource.
+    - how was alb configuration changed over time.
+    - is there unrestricted ssh access to my security group
+
+    compilance of your resource
